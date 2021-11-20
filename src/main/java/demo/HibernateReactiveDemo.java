@@ -15,9 +15,9 @@ public class HibernateReactiveDemo {
     public static void main(String[] args) {
         showExamples(() -> {
 
-            savePersonWithANote("Andrii", "Hello everyone!")
+            savePersonWithANote("Robert", "This code drives me crazy!")
                     .thenCompose(
-                            person -> addNoteByPersonId(person.getId(), "The second note :)")
+                            person -> addNoteByPersonId(person.getId(), "No doubts this will work.")
                                     .thenApply(v -> person)
                     )
                     .thenCompose(
@@ -73,9 +73,9 @@ public class HibernateReactiveDemo {
     private static CompletionStage<List<Person>> getAllPersonWithNotesUsingJoinFetch() {
         return sessionFactory.withSession(
                 session -> session.createQuery(
-                        "select distinct p from Person p left join fetch p.notes",
-                        Person.class
-                )
+                                "select distinct p from Person p left join fetch p.notes",
+                                Person.class
+                        )
                         .getResultList()
         );
     }
@@ -94,9 +94,9 @@ public class HibernateReactiveDemo {
     private static CompletionStage<Void> makeAllPersonsReactive() {
         return sessionFactory.withTransaction(
                 (session, tx) -> session.createQuery(
-                        "select p from Person p left join fetch p.notes",
-                        Person.class
-                )
+                                "select p from Person p left join fetch p.notes",
+                                Person.class
+                        )
                         .getResultList()
                         .thenAccept(HibernateReactiveDemo::addReactivePrefix)
         );

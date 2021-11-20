@@ -15,13 +15,13 @@ public class Note {
     @GeneratedValue
     private Long id;
 
-    private String message;
+    private String body;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
 
-    public Note(String message) {
-        this.message = message;
+    public Note(String body) {
+        this.body = body;
     }
 }
